@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Bookings</title>
+</head>
+<body>
+<h1>All Bookings</h1>
+<ul>
+    <li th:each="booking : ${bookings}">
+        Booking ID: <span th:text="${booking.id}"></span>,
+        Start Date: <span th:text="${booking.startDate}"></span>,
+        End Date: <span th:text="${booking.endDate}"></span>
+    </li>
+</ul>
+<a href="/bookings/new">Create New Booking</a>
+</body>
+</html>

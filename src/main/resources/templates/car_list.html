@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Cars</title>
+</head>
+<body>
+<h1>All Cars</h1>
+<ul>
+    <li th:each="car : ${cars}">
+        Car ID: <span th:text="${car.id}"></span>,
+        Brand: <span th:text="${car.brand}"></span>,
+        Class: <span th:text="${car.carClass}"></span>,
+        Price per Day: <span th:text="${car.pricePerDay}"></span>
+    </li>
+</ul>
+<a href="/cars/new">Add New Car</a>
+</body>
+</html>

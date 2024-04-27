@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Payment</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Create a New Payment</h1>
+    <form action="/payments" method="post">
+        <!-- Выпадающий список бронирований -->
+        <label for="bookingId">Booking</label>
+        <select id="bookingId" name="bookingId" class="form-control" required>
+            <option value="" disabled selected>Select a booking</option>
+            <!-- Корректный способ использования th:text -->
+            <option th:each="booking : ${bookings}" th:value="${booking.id}" th:text="'Booking ID: ' + ${booking.id} + ', Start: ' + ${booking.startDate} + ', End: ' + ${booking.endDate}"></option>
+        </select>
+        <br>
+
+        <label for="paymentDate">Payment Date</label>
+        <input type="date" id="paymentDate" name="paymentDate" class="form-control" required><br>
+
+        <label for="amount">Amount</label>
+        <input type="number" step="0.01" id="amount" name="amount" class="form-control" required><br>
+
+        <button type="submit" class="btn btn-primary">Create Payment</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS и Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

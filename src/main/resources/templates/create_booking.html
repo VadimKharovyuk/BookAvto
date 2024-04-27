@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Booking</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Create a New Booking</h1>
+    <form action="/bookings" method="post">
+        <!-- Выпадающий список клиентов -->
+        <label for="clientId">Client</label>
+        <select id="clientId" name="clientId" class="form-control" required>
+            <option value="" disabled selected>Select a client</option>
+            <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.name}"></option>
+        </select>
+        <br>
+
+        <!-- Выпадающий список машин -->
+        <label for="carId">Car</label>
+        <select id="carId" name="carId" class="form-control" required>
+            <option value="" disabled selected>Select a car</option>
+            <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.brand}"></option>
+        </select>
+        <br>
+
+        <!-- Даты начала и конца бронирования -->
+        <label for="startDate">Start Date</label>
+        <input type="date" id="startDate" name="startDate" class="form-control" required><br>
+
+        <label for="endDate">End Date</label>
+        <input type="date" id="endDate" name="endDate" class="form-control" required><br>
+
+        <button type="submit" class="btn btn-primary">Create Booking</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS и Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
