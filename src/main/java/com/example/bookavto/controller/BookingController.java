@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
@@ -58,6 +59,48 @@ public class BookingController {
 
         return "redirect:/bookings";
     }
+
+//    @GetMapping("/bookings/calculate")
+//    public String calculateBookingCost(
+//            @RequestParam("carId") Long carId,
+//            @RequestParam("startDate") LocalDate startDate,
+//            @RequestParam("endDate") LocalDate endDate,
+//            Model model
+//    ) {
+//        // Логирование для проверки получаемых параметров
+//        System.out.println("Received carId: " + carId);
+//        long numberOfDays = ChronoUnit.DAYS.between(startDate , endDate);
+//        double cost = bookingService.calculateBookingCost(carId, (int) numberOfDays);
+//
+//        model.addAttribute("cost", cost);
+//        return "booking_cost";
+//    }
+@GetMapping("/bookings/calculate")
+public String calculateBookingCost(
+        @RequestParam("carId") Long carId,  // Получение параметра carId
+        @RequestParam("startDate")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+        @RequestParam("endDate")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+        Model model
+) {
+    // Вычисление количества дней
+    long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);
+
+    // Расчет стоимости
+    double cost = bookingService.calculateBookingCost(carId, (int) numberOfDays);
+
+    // Передача данных в модель
+    model.addAttribute("cost", cost);
+    model.addAttribute("bookingId", carId);
+    model.addAttribute("startDate", startDate);
+    model.addAttribute("endDate", endDate);
+
+    // Возвращаем страницу с рассчитанной стоимостью
+    return "booking_cost";
+
+
+}
 
 
 }

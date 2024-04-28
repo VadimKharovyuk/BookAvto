@@ -27,7 +27,23 @@
         </ul>
     </div>
 </nav>
-
+<div class="container mt-5">  <!-- Центрирование содержимого -->
+    <h1>All Bookings</h1>
+    <ul>
+        <li th:each="booking : ${bookings}">
+            Booking ID: <span th:text="${booking.id}"></span>,
+            Start Date: <span th:text="${booking.startDate}"></span>,
+            End Date: <span th:text="${booking.endDate}"></span>
+            <!-- Кнопка для расчета стоимости -->
+            <form action="/bookings/calculate" method="get" style="display: inline-block;">  <!-- Форма с передачей параметров -->
+                <input type="hidden" name="carId" th:value="${booking.car.id}">  <!-- Передача carId -->
+                <input type="hidden" name="startDate" th:value="${booking.startDate}">  <!-- Передача startDate -->
+                <input type="hidden" name="endDate" th:value="${booking.endDate}">  <!-- Передача endDate -->
+                <button type="submit" class="btn btn-info">Calculate Cost</button>  <!-- Кнопка для расчета -->
+            </form>
+        </li>
+    </ul>
+</div>
 <!-- Основной контент -->
 <div class="container mt-5">  <!-- Центрирование содержимого -->
     <h1>All Bookings</h1>
@@ -51,6 +67,8 @@
     <!-- Кнопка для создания нового бронирования -->
     <a href="/bookings/new" class="btn btn-primary">Create New Booking</a>
 </div>
+
+
 
 <!-- Подключение Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -57,4 +57,14 @@ alter table if exists payment add constraint FKqewrl4xrv9eiad6eab3aoja65 foreign
 
 
 
+-- Пример изменения внешнего ключа с ON DELETE CASCADE
+ ALTER TABLE payment
+     DROP CONSTRAINT fkqewrl4xrv9eiad6eab3aoja65;  -- Удаляем старый внешний ключ
+
+ ALTER TABLE payment
+     ADD CONSTRAINT fkqewrl4xrv9eiad6eab3aoja65
+         FOREIGN KEY (booking_id) REFERENCES booking (id) ON DELETE CASCADE;  -- Добавляем с каскадным удалением
+
+
+
 
