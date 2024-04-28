@@ -9,4 +9,8 @@ public class Home {
     public String homePage(){
         return "index";
     }
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
+    }
 }
