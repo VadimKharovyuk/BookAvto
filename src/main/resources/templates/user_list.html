@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All Bookings</title>
+    <title>All Users</title>
     <!-- Подключение Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -15,10 +15,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/cars">Cars</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/bookings">Bookings</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/users">Users</a>
             </li>
             <li class="nav-item">
@@ -29,27 +29,27 @@
 </nav>
 
 <!-- Основной контент -->
-<div class="container mt-5">  <!-- Центрирование содержимого -->
-    <h1>All Bookings</h1>
+<div class="container mt-5">
+    <h1>All Users</h1>
     <!-- Таблица с Bootstrap -->
-    <table class="table table-striped">  <!-- Используем стили Bootstrap -->
+    <table class="table table-striped">  <!-- Используем Bootstrap для стилизации -->
         <thead>
         <tr>
-            <th>Booking ID</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="booking : ${bookings}">  <!-- Заполнение таблицы данными -->
-            <td th:text="${booking.id}"></td>
-            <td th:text="${booking.startDate}"></td>
-            <td th:text="${booking.endDate}"></td>
+        <tr th:each="user : ${users}">  <!-- Динамическое заполнение -->
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.role}"></td>
         </tr>
         </tbody>
     </table>
-    <!-- Кнопка для создания нового бронирования -->
-    <a href="/bookings/new" class="btn btn-primary">Create New Booking</a>
 </div>
 
 <!-- Подключение Bootstrap JS -->

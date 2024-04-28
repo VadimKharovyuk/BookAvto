@@ -58,4 +58,6 @@ public class BookingController {
 
         return "redirect:/bookings";
     }
+
+
 }

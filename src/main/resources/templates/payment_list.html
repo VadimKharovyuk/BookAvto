@@ -3,17 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>All Payments</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>All Payments</h1>
-<ul>
-    <li th:each="payment : ${payments}">
-        Payment ID: <span th:text="${payment.id}"></span>,
-        Booking ID: <span th:text="${payment.booking.id}"></span>,
-        Payment Date: <span th:text="${payment.paymentDate}"></span>,
-        Amount: <span th:text="${payment.amount}"></span>
-    </li>
-</ul>
-<a href="/payments/new">Create New Payment</a>
+<!-- Навигационная панель -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">MyApp</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/cars">Cars</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/bookings">Bookings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Users</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/payments">Payments</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Основной контент -->
+<div class="container mt-5">  <!-- Центрирование содержимого -->
+    <h1>All Payments</h1>
+    <!-- Таблица с Bootstrap -->
+    <table class="table table-striped">  <!-- Используем Bootstrap для стилизации -->
+        <thead>
+        <tr>
+            <th>Payment ID</th>
+            <th>Booking ID</th>
+            <th>Payment Date</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="payment : ${payments}">  <!-- Заполнение таблицы данными -->
+            <td th:text="${payment.id}"></td>
+            <td th:text="${payment.booking.id}"></td>
+            <td th:text="${payment.paymentDate}"></td>
+            <td th:text="${payment.amount}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Кнопка для создания нового платежа -->
+    <a href="/payments/new" class="btn btn-primary">Create New Payment</a>
+</div>
+
+<!-- Подключение Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

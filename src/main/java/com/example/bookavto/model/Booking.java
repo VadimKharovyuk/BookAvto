@@ -33,6 +33,10 @@ public class Booking {
         this.id=bookingId;
     }
 
+    public void setCarId(Long carId) {
+        this.id=carId;
+    }
+
     // Геттеры и сеттеры
 }
 

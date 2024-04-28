@@ -3,14 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Car</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Add a New Car</h1>
-<form action="/cars" method="post">
-    Brand: <input type="text" name="brand" required><br>
-    Class: <input type="text" name="carClass" required><br>
-    Price per Day: <input type="number" step="0.01" name="pricePerDay" required><br>
-    <button type="submit">Add Car</button>
-</form>
+<!-- Навигационная панель -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">MyApp</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/cars">Cars</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/bookings">Bookings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/payments">Payments</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Основной контент -->
+<div class="container mt-5">  <!-- Центрирование содержимого -->
+    <h1>Add a New Car</h1>
+    <!-- Форма с Bootstrap -->
+    <form action="/cars" method="post">
+        <div class="form-group">  <!-- Используем Bootstrap для стилизации -->
+            <label for="brand">Brand</label>
+            <input type="text" id="brand" name="brand" class="form-control" required>  <!-- Поле ввода -->
+        </div>
+        <div class="form-group">
+            <label for="carClass">Class</label>
+            <input type="text" id="carClass" name="carClass" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="pricePerDay">Price per Day</label>
+            <input type="number" id="pricePerDay" step="0.01" name="pricePerDay" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Car</button>  <!-- Кнопка с Bootstrap -->
+    </form>
+</div>
+
+<!-- Подключение Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>

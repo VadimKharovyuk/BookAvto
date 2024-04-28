@@ -3,17 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>All Cars</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>All Cars</h1>
-<ul>
-    <li th:each="car : ${cars}">
-        Car ID: <span th:text="${car.id}"></span>,
-        Brand: <span th:text="${car.brand}"></span>,
-        Class: <span th:text="${car.carClass}"></span>,
-        Price per Day: <span th:text="${car.pricePerDay}"></span>
-    </li>
-</ul>
-<a href="/cars/new">Add New Car</a>
+<div class="container mt-5">  <!-- Контейнер для центрирования содержимого -->
+    <h1>All Cars</h1>
+    <!-- Таблица с Bootstrap -->
+    <table class="table table-striped">  <!-- Используем классы Bootstrap для таблицы -->
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Class</th>
+            <th>Price per Day</th>
+            <th>Action</th>  <!-- Новая колонка "Action" -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car : ${cars}">  <!-- Заполнение таблицы данными -->
+            <td th:text="${car.id}"></td>
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.carClass}"></td>
+            <td th:text="${car.pricePerDay}"></td>
+            <td>  <!-- Колонка "Action" -->
+                <a href="/bookings/new" class="btn btn-success" th:href="@{/bookings/new(carId=${car.id})}">Book</a>  <!-- Кнопка для бронирования -->
+                <a href="/cars/delete" class="btn btn-danger" th:href="@{/cars/delete(carId=${car.id})}">Delete</a>  <!-- Кнопка для удаления -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Кнопка для добавления новой машины -->
+    <a href="/cars/new" class="btn btn-primary">Add New Car</a>
+</div>
+
+<!-- Подключение Bootstrap JS и Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
