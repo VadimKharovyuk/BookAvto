@@ -38,7 +38,7 @@
             <!-- Имя клиента -->
             <!-- Кнопка для расчета стоимости -->
             <form action="/bookings/calculate" method="get" style="display: inline-block;">  <!-- Форма с передачей параметров -->
-<!--                <input type="hidden" name="carId" th:value="${booking.car.id}">  &lt;!&ndash; Передача carId &ndash;&gt;-->
+                <input type="hidden" name="carId" th:value="${booking.car.id}">  <!-- Передача carId -->
                 <input type="hidden" name="startDate" th:value="${booking.startDate}">  <!-- Передача startDate -->
                 <input type="hidden" name="endDate" th:value="${booking.endDate}">  <!-- Передача endDate -->
                 <button type="submit" class="btn btn-info">Calculate Cost</button>  <!-- Кнопка для расчета -->
