@@ -47,4 +47,10 @@ public class BookingService {
 
         return basePrice * numberOfDays * multiplier;  // Рассчитываем итоговую стоимость
     }
+
+    public Booking getBookingById(Long bookingId) {
+        return bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new IllegalArgumentException("Booking not found for ID: " + bookingId));
+    }
+
 }

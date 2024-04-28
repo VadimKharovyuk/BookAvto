@@ -23,7 +23,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private User client;
+    private User client;  // Убедитесь, что `client` не является `null`
 
     @ManyToOne
     @JoinColumn(name = "car_id")

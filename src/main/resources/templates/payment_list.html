@@ -44,7 +44,7 @@
         <tbody>
         <tr th:each="payment : ${payments}">  <!-- Заполнение таблицы данными -->
             <td th:text="${payment.id}"></td>
-            <td th:text="${payment.booking.id}"></td>
+            <td th:text="${payment.booking.getClient().getName()}"></td>
             <td th:text="${payment.paymentDate}"></td>
             <td th:text="${payment.amount}"></td>
         </tr>

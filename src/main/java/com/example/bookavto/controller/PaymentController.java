@@ -21,10 +21,11 @@ public class PaymentController {
 
     @GetMapping("/payments")
     public String getAllPayments(Model model) {
-        List<Payment> payments = paymentService.getAllPayments();
+        List<Payment> payments = paymentService.getAllPayments();  // Убедитесь, что данные присутствуют
         model.addAttribute("payments", payments);
         return "payment_list";
     }
+
 
     @GetMapping("/payments/new")
     public String showCreatePaymentForm(Model model) {
@@ -37,12 +38,17 @@ public class PaymentController {
     @PostMapping("/payments")
     public String createPayment(
             @RequestParam("bookingId") Long bookingId,
-            @RequestParam("paymentDate")
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate paymentDate,
+            @RequestParam("paymentDate") LocalDate paymentDate,
             @RequestParam("amount") double amount
     ) {
         Payment payment = new Payment();
-        payment.setBooking(new Booking(bookingId));
+        Booking booking = bookingService.getBookingById(bookingId);  // Проверка на null
+
+        if (booking == null) {
+            throw new IllegalArgumentException("Booking not found for ID: " + bookingId);  // Обработка ошибки
+        }
+
+        payment.setBooking(booking);
         payment.setPaymentDate(paymentDate);
         payment.setAmount(amount);
 
@@ -50,4 +56,7 @@ public class PaymentController {
 
         return "redirect:/payments";
     }
+
+
+
 }
