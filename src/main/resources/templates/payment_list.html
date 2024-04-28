@@ -29,28 +29,34 @@
 </nav>
 
 <!-- Основной контент -->
-<div class="container mt-5">  <!-- Центрирование содержимого -->
+<div class="container mt-5">
     <h1>All Payments</h1>
-    <!-- Таблица с Bootstrap -->
-    <table class="table table-striped">  <!-- Используем Bootstrap для стилизации -->
+    <table class="table table-striped">  <!-- Используем Bootstrap -->
         <thead>
         <tr>
-            <th>Payment ID</th>
-            <th>Booking ID</th>
+<!--            <th>Payment ID</th>-->
+            <th>Client Name</th>
             <th>Payment Date</th>
             <th>Amount</th>
+            <th>Action</th>  <!-- Добавлена колонка для действий -->
         </tr>
         </thead>
         <tbody>
         <tr th:each="payment : ${payments}">  <!-- Заполнение таблицы данными -->
-            <td th:text="${payment.id}"></td>
-            <td th:text="${payment.booking.getClient().getName()}"></td>
-            <td th:text="${payment.paymentDate}"></td>
-            <td th:text="${payment.amount}"></td>
+            <td th:text="${payment.id}"></td>  <!-- ID платежа -->
+            <td th:text="${payment.booking.client.name}"></td>  <!-- Имя клиента -->
+            <td th:text="${payment.paymentDate}"></td>  <!-- Дата платежа -->
+            <td th:text="${payment.amount}"></td>  <!-- Сумма платежа -->
+            <td>
+                <!-- Форма для удаления платежа -->
+                <form action="/payments/delete" method="post" style="display: inline-block;">
+                    <input type="hidden" name="paymentId" th:value="${payment.id}">  <!-- Передача ID платежа -->
+                    <button type="submit" class="btn btn-danger">Delete</button>  <!-- Кнопка удаления -->
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
-    <!-- Кнопка для создания нового платежа -->
     <a href="/payments/new" class="btn btn-primary">Create New Payment</a>
 </div>
 

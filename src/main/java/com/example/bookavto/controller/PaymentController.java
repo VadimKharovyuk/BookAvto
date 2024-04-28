@@ -55,7 +55,11 @@ public class PaymentController {
 
         return "redirect:/payments";
     }
-
+    @PostMapping("/payments/delete")
+    public String deletePayment(@RequestParam("paymentId") Long paymentId) {
+        paymentService.deletePayment(paymentId);  // Удаление платежа по ID
+        return "redirect:/payments";  // Перенаправление после удаления
+    }
 
 
 }
