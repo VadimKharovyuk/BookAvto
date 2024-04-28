@@ -44,4 +44,9 @@ public class UserController {
         model.addAttribute("user", user);
         return "user_detail";
     }
+    @PostMapping("/users/delete")
+    public String deleteUser(@RequestParam("userId") Long userId) {
+        userService.deleteUser(userId);  // Удаление пользователя по ID
+        return "redirect:/users";  // Перенаправление после удаления
+    }
 }

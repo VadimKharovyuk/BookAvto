@@ -54,6 +54,7 @@
             <th>Booking ID</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -61,6 +62,12 @@
             <td th:text="${booking.id}"></td>
             <td th:text="${booking.startDate}"></td>
             <td th:text="${booking.endDate}"></td>
+            <td>
+                <form action="/bookings/delete" method="post" style="display: inline-block;">
+                <input type="hidden" name="bookingId" th:value="${booking.id}">  <!-- Передача bookingId -->
+                <button type="submit" class="btn btn-danger">Delete</button>  <!-- Кнопка удаления -->
+            </form>
+            </td>
         </tr>
         </tbody>
     </table>

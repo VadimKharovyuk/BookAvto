@@ -29,24 +29,33 @@
 </nav>
 
 <!-- Основной контент -->
-<div class="container mt-5">
+<div class="container mt-5">  <!-- Центрирование содержимого -->
     <h1>All Users</h1>
-    <!-- Таблица с Bootstrap -->
-    <table class="table table-striped">  <!-- Используем Bootstrap для стилизации -->
+    <!-- Таблица с колонкой "Action" -->
+    <table class="table table-striped">  <!-- Используем Bootstrap -->
         <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Action</th>  <!-- Добавлена колонка "Action" -->
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users}">  <!-- Динамическое заполнение -->
-            <td th:text="${user.id}"></td>
             <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.role}"></td>
+            <td>
+                <!-- Ссылка на страницу с деталями пользователя -->
+                <a href="/users/{id}" th:href="@{/users/{id}(id=${user.id})}" class="btn btn-info">Details</a>
+
+                <!-- Форма для удаления пользователя -->
+                <form action="/users/delete" method="post" style="display: inline-block;">
+                    <input type="hidden" name="userId" th:value="${user.id}">  <!-- Передача ID пользователя -->
+                    <button type="submit" class="btn btn-danger">Delete</button>  <!-- Кнопка удаления -->
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -57,4 +66,3 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Detail</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Навигационная панель -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">MyApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/cars">Cars</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/bookings">Bookings</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/users">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/payments">Payments</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Основной контент -->
+<div class="container mt-5">
+    <h1>User Detail</h1>
+    <!-- Отображение информации о пользователе -->
+    <p>User ID: <span th:text="${user.id}"></span></p>
+    <p>Name: <span th:text="${user.name}"></span></p>
+    <p>Email: <span th:text="${user.email}"></span></p>
+    <p>Role: <span th:text="${user.role}"></span></p>
+
+    <!-- Кнопки действий -->
+    <a href="/users/edit" th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-warning">Edit</a>  <!-- Кнопка для редактирования -->
+    <form action="/users/delete" method="post" style="display: inline-block;">  <!-- Форма для удаления -->
+        <input type="hidden" name="userId" th:value="${user.id}">  <!-- Передача ID пользователя -->
+        <button type="submit" class="btn btn-danger">Delete</button>  <!-- Кнопка удаления -->
+    </form>
+
+    <!-- Кнопка возврата к списку пользователей -->
+    <a href="/users" class="btn btn-primary">Back to Users</a>
+</div>
+
+<!-- Подключение Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

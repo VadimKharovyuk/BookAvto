@@ -7,6 +7,31 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<!-- Навигационная панель -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">MyApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/cars">Cars</a>  <!-- Ссылка на страницу с машинами -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/bookings">Bookings</a>  <!-- Ссылка на страницу с бронированиями -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Users</a>  <!-- Ссылка на страницу с пользователями -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/payments">Payments</a>  <!-- Ссылка на страницу с платежами -->
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Основной контент -->
 <div class="container mt-5">  <!-- Центрирование содержимого -->
     <h1>All Cars</h1>
     <!-- Таблица с машинами -->
@@ -27,7 +52,7 @@
             <td th:text="${car.carClass}"></td>
             <td th:text="${car.pricePerDay}"></td>
             <td>
-                <a href="/cars/book" class="btn btn-success" th:href="@{/bookings/new(carId=${car.id})}">Book</a>
+                <a href="/bookings/new" class="btn btn-success" th:href="@{/bookings/new(carId=${car.id})}">Book</a>
                 <!-- Форма для удаления машины -->
                 <form action="/cars/delete" method="post" style="display: inline-block;">
                     <input type="hidden" name="carId" th:value="${car.id}">  <!-- Передача ID машины -->
@@ -37,6 +62,7 @@
         </tr>
         </tbody>
     </table>
+    <!-- Кнопка для добавления новой машины -->
     <a href="/cars/new" class="btn btn-primary">Add New Car</a>
 </div>
 

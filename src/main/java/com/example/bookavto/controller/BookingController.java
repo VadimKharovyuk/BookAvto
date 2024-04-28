@@ -60,21 +60,6 @@ public class BookingController {
         return "redirect:/bookings";
     }
 
-//    @GetMapping("/bookings/calculate")
-//    public String calculateBookingCost(
-//            @RequestParam("carId") Long carId,
-//            @RequestParam("startDate") LocalDate startDate,
-//            @RequestParam("endDate") LocalDate endDate,
-//            Model model
-//    ) {
-//        // Логирование для проверки получаемых параметров
-//        System.out.println("Received carId: " + carId);
-//        long numberOfDays = ChronoUnit.DAYS.between(startDate , endDate);
-//        double cost = bookingService.calculateBookingCost(carId, (int) numberOfDays);
-//
-//        model.addAttribute("cost", cost);
-//        return "booking_cost";
-//    }
 @GetMapping("/bookings/calculate")
 public String calculateBookingCost(
         @RequestParam("carId") Long carId,  // Получение параметра carId
@@ -101,6 +86,11 @@ public String calculateBookingCost(
 
 
 }
+    @PostMapping("/bookings/delete")
+    public String deleteBooking(@RequestParam("bookingId") Long bookingId) {
+        bookingService.deleteBooking(bookingId);  // Удаление бронирования по ID
+        return "redirect:/bookings";  // Перенаправление после удаления
+    }
 
 
 }
