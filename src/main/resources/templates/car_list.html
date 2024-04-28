@@ -2,42 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All Cars</title>
+    <title>Cars</title>
     <!-- Подключение Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">  <!-- Контейнер для центрирования содержимого -->
+<div class="container mt-5">  <!-- Центрирование содержимого -->
     <h1>All Cars</h1>
-    <!-- Таблица с Bootstrap -->
-    <table class="table table-striped">  <!-- Используем классы Bootstrap для таблицы -->
+    <!-- Таблица с машинами -->
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>Brand</th>
             <th>Class</th>
             <th>Price per Day</th>
-            <th>Action</th>  <!-- Новая колонка "Action" -->
+            <th>Action</th>  <!-- Колонка для действий -->
         </tr>
         </thead>
         <tbody>
-        <tr th:each="car : ${cars}">  <!-- Заполнение таблицы данными -->
+        <tr th:each="car : ${cars}">
             <td th:text="${car.id}"></td>
             <td th:text="${car.brand}"></td>
             <td th:text="${car.carClass}"></td>
             <td th:text="${car.pricePerDay}"></td>
-            <td>  <!-- Колонка "Action" -->
-                <a href="/bookings/new" class="btn btn-success" th:href="@{/bookings/new(carId=${car.id})}">Book</a>  <!-- Кнопка для бронирования -->
-                <a href="/cars/delete" class="btn btn-danger" th:href="@{/cars/delete(carId=${car.id})}">Delete</a>  <!-- Кнопка для удаления -->
+            <td>
+                <a href="/cars/book" class="btn btn-success" th:href="@{/bookings/new(carId=${car.id})}">Book</a>
+                <!-- Форма для удаления машины -->
+                <form action="/cars/delete" method="post" style="display: inline-block;">
+                    <input type="hidden" name="carId" th:value="${car.id}">  <!-- Передача ID машины -->
+                    <button type="submit" class="btn btn-danger">Delete</button>  <!-- Кнопка для удаления -->
+                </form>
             </td>
         </tr>
         </tbody>
     </table>
-    <!-- Кнопка для добавления новой машины -->
     <a href="/cars/new" class="btn btn-primary">Add New Car</a>
 </div>
 
-<!-- Подключение Bootstrap JS и Popper.js -->
+<!-- Подключение Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
