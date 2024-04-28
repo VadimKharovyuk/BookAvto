@@ -4,7 +4,6 @@ import com.example.bookavto.model.Role;
 import com.example.bookavto.model.User;
 import com.example.bookavto.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
