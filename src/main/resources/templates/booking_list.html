@@ -31,12 +31,14 @@
     <h1>Calculate</h1>
     <ul>
         <li th:each="booking : ${bookings}">
-            Booking ID: <span th:text="${booking.id}"></span>,
+            Client: <span th:text="${booking.client.name}"></span><br>
+<!--            Booking ID: <span th:text="${booking.id}"></span>,-->
             Start Date: <span th:text="${booking.startDate}"></span>,
-            End Date: <span th:text="${booking.endDate}"></span>
+            End Date: <span th:text="${booking.endDate}"></span>,
+            <!-- Имя клиента -->
             <!-- Кнопка для расчета стоимости -->
             <form action="/bookings/calculate" method="get" style="display: inline-block;">  <!-- Форма с передачей параметров -->
-                <input type="hidden" name="carId" th:value="${booking.car.id}">  <!-- Передача carId -->
+<!--                <input type="hidden" name="carId" th:value="${booking.car.id}">  &lt;!&ndash; Передача carId &ndash;&gt;-->
                 <input type="hidden" name="startDate" th:value="${booking.startDate}">  <!-- Передача startDate -->
                 <input type="hidden" name="endDate" th:value="${booking.endDate}">  <!-- Передача endDate -->
                 <button type="submit" class="btn btn-info">Calculate Cost</button>  <!-- Кнопка для расчета -->
@@ -44,6 +46,7 @@
         </li>
     </ul>
 </div>
+
 <!-- Основной контент -->
 <div class="container mt-5">  <!-- Центрирование содержимого -->
     <h1>All Bookings</h1>
