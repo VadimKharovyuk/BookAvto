@@ -19,6 +19,7 @@ public class Payment {
     private LocalDate paymentDate;
     private double amount;
 
+
     @ManyToOne
     @JoinColumn(name = "booking_id")
     private Booking booking;

@@ -5,6 +5,7 @@ import com.example.bookavto.model.Car;
 import com.example.bookavto.model.User;
 import com.example.bookavto.service.BookingService;
 import com.example.bookavto.service.CarService;
+import com.example.bookavto.service.EmailSenderService;
 import com.example.bookavto.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +23,7 @@ public class BookingController {
     private final BookingService bookingService;
     private final CarService carService;
     private final UserService userService;
+    private final EmailSenderService emailSenderService;
 
     @GetMapping("/bookings")
     public String getAllBookings(Model model) {
@@ -42,6 +44,7 @@ public class BookingController {
 
     @PostMapping("/bookings")
     public String createBooking(
+            @RequestParam("clientEmail") String clientEmail,
             @RequestParam("clientId") Long clientId,
             @RequestParam("carId") Long carId,
             @RequestParam("startDate")
@@ -49,48 +52,74 @@ public class BookingController {
             @RequestParam("endDate")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
     ) {
+        // Получаем клиента из базы данных
+        User client = userService.getUserById(clientId).orElseThrow(
+                () -> new IllegalArgumentException("Client not found with ID: " + clientId)
+        );
+
+        // Получаем машину из базы данных
+        Car car = carService.getCarById(carId).orElseThrow(
+                () -> new IllegalArgumentException("Car not found with ID: " + carId)
+        );
+
+        // Создание объекта бронирования
         Booking booking = new Booking();
-        booking.setClient(new User(clientId));
-        booking.setCar(new Car(carId));
         booking.setStartDate(startDate);
         booking.setEndDate(endDate);
+        booking.setCar(car);  // Установка машины
+        booking.setClient(client);  // Установка клиента
 
         bookingService.createBooking(booking);
 
-        return "redirect:/bookings";
+        // Форматированный текст электронного письма
+        String emailContent = String.format(
+                "Thank you for booking with us!\n\n" +
+                        "Booking details:\n" +
+                        "Car Brand: %s\n" +
+                        "Start Date: %s\n" +
+                        "End Date: %s\n" +
+                        "Client: %s",
+                car.getBrand(),  // Бренд машины
+                startDate.toString(),  // Дата начала
+                endDate.toString(),  // Дата окончания
+                client.getName()  // Имя клиента
+        );
+
+        // Отправка электронного письма
+        emailSenderService.sendEmail(
+                clientEmail,
+                "Booking Confirmation",
+                emailContent
+        );
+
+        return "redirect:/bookings";  // Перенаправление после создания бронирования
+    }
+    @GetMapping("/bookings/calculate") // Маршрут, который обрабатывает запросы на расчет стоимости
+    public String calculateBookingCost(
+            @RequestParam("carId") Long carId,  // ID машины
+            @RequestParam("startDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            Model model
+    ) {
+        long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);  // Вычисление дней
+
+        // Рассчитываем стоимость на основе количества дней
+        double cost = bookingService.calculateBookingCost(carId, (int) numberOfDays);
+
+        // Передаем данные в представление
+        model.addAttribute("cost", cost);
+        model.addAttribute("bookingId", carId);  // ID бронирования
+        model.addAttribute("startDate", startDate);  // Дата начала
+        model.addAttribute("endDate", endDate);  // Дата окончания
+
+        return "booking_cost";  // Возвращаем страницу с рассчитанной стоимостью
     }
 
-@GetMapping("/bookings/calculate")
-public String calculateBookingCost(
-        @RequestParam("carId") Long carId,  // Получение параметра carId
-        @RequestParam("startDate")
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-        @RequestParam("endDate")
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-        Model model
-) {
-    // Вычисление количества дней
-    long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);
-
-    // Расчет стоимости
-    double cost = bookingService.calculateBookingCost(carId, (int) numberOfDays);
-
-    // Передача данных в модель
-    model.addAttribute("cost", cost);
-    model.addAttribute("bookingId", carId);
-    model.addAttribute("startDate", startDate);
-    model.addAttribute("endDate", endDate);
-
-    // Возвращаем страницу с рассчитанной стоимостью
-    return "booking_cost";
-
-
-}
     @PostMapping("/bookings/delete")
     public String deleteBooking(@RequestParam("bookingId") Long bookingId) {
-        bookingService.deleteBooking(bookingId);  // Удаление бронирования по ID
+        bookingService.deleteBooking(bookingId);  // Удаление бронирования
         return "redirect:/bookings";  // Перенаправление после удаления
     }
-
-
 }
